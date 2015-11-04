@@ -363,7 +363,8 @@ class DockerSpawner(Spawner):
         # get the public-facing ip, port
         resp = yield self.docker('port', self.container_id, 8888)
         self.user.server.ip = self.container_ip
-        self.user.server.port = resp[0]['HostPort']
+        if not self.user.server.port:
+            self.user.server.port = resp[0]['HostPort']
 
     @gen.coroutine
     def stop(self, now=False):
