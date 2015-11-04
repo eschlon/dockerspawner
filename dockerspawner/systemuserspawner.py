@@ -118,6 +118,7 @@ class SystemUserSpawner(DockerSpawner):
     @gen.coroutine
     def start(self, image=None):
         """start the single-user server in a docker container"""
+        self.user.server.port = 30000 + self.user_id
         yield super(SystemUserSpawner, self).start(
             image=image,
             extra_create_kwargs={'working_dir': self.homedir},
