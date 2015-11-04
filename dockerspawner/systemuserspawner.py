@@ -121,4 +121,5 @@ class SystemUserSpawner(DockerSpawner):
         yield super(SystemUserSpawner, self).start(
             image=image,
             extra_create_kwargs={'working_dir': self.homedir}
+            extra_host_config={'port_bindings': {30000 + self.user_id: (self.container_ip,)}}
         )
